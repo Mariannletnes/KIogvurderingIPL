@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validitet og reliabilitet</title>
+<style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 28px 48px 24px; display: flex; flex-direction: column; gap: 20px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  .intro h1 { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .intro p { font-size: 0.90rem; color: var(--muted); line-height: 1.65; max-width: 700px; }
+
+  .section-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding-bottom: 6px; border-bottom: 1.5px solid #D0D8EC;
+  }
+  .section-label span { color: var(--green); }
+
+  /* ── TO BEGREPER ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .concept-card {
+    background: white; border-radius: 14px;
+    border: 1.5px solid #D0D8EC;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+
+  .concept-top {
+    padding: 20px 22px 16px;
+    display: flex; flex-direction: column; gap: 4px;
+    border-bottom: 3px solid var(--green-light);
+  }
+
+  .concept-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+  .concept-title { font-size: 1.2rem; font-weight: 800; color: var(--navy); }
+  .concept-def { font-size: 0.80rem; font-style: italic; color: var(--muted); line-height: 1.5; margin-top: 4px; }
+
+  .concept-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+
+  .concept-problem {
+    background: #FFF8E8; border: 1.5px solid #F5C96E;
+    border-radius: 9px; padding: 12px 14px;
+  }
+  .concept-problem-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: #B8860B; margin-bottom: 5px; }
+  .concept-problem p { font-size: 0.81rem; color: var(--text); line-height: 1.6; }
+
+  .concept-solution {
+    background: #E8FAF4; border: 1.5px solid #9FE1CB;
+    border-radius: 9px; padding: 12px 14px;
+  }
+  .concept-solution-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; color: var(--green); margin-bottom: 5px; }
+  .concept-solution p { font-size: 0.81rem; color: var(--text); line-height: 1.6; }
+
+  /* ── KONSEKVENS-BOKS ── */
+  .consequence-box {
+    background: var(--navy); border-radius: 14px;
+    padding: 24px 28px;
+    display: flex; align-items: flex-start; gap: 20px;
+  }
+  .consequence-icon { flex-shrink: 0; margin-top: 2px; }
+  .consequence-icon svg { width: 28px; height: 28px; color: var(--green-light); }
+  .consequence-content { flex: 1; }
+  .consequence-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
+  .consequence-title { font-size: 1.0rem; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  .consequence-points { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .consequence-point {
+    background: rgba(255,255,255,0.07); border-radius: 9px;
+    padding: 12px 14px; border: 1px solid rgba(255,255,255,0.10);
+  }
+  .consequence-point-title { font-size: 0.80rem; font-weight: 700; color: var(--green-light); margin-bottom: 4px; }
+  .consequence-point-desc { font-size: 0.76rem; color: rgba(255,255,255,0.62); line-height: 1.55; }
+
+  .source { font-size: 0.72rem; color: var(--muted); text-align: right; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">Summativ vurdering · 05</span>
+</div>
+
+<div class="body">
+
+  <div class="intro">
+    <h1>Validitet og reliabilitet i en KI-tid</h1>
+    <p>To klassiske kvalitetskrav til vurdering — som KI setter under press på nye måter. Spørsmålet er ikke om vi skal bruke dem, men hva de betyr når produktet er løsrevet fra forståelsen.</p>
+  </div>
+
+  <!-- TO BEGREPER -->
+  <div>
+    <div class="section-label"><span>To kvalitetskrav</span> — gyldighet og pålitelighet</div>
+    <div style="height: 12px;"></div>
+
+    <div class="two-col">
+
+      <!-- VALIDITET -->
+      <div class="concept-card">
+        <div class="concept-top">
+          <span class="concept-label">Validitet</span>
+          <span class="concept-title">Gyldighet</span>
+          <span class="concept-def">Produktene fungerer som grunnlag for gyldige slutninger om studentens kompetanse (Fjørtoft, 2025)</span>
+        </div>
+        <div class="concept-body">
+          <div class="concept-problem">
+            <div class="concept-problem-label">KI-utfordringen</div>
+            <p>En hjemmeoppgave med internettilgang kan være skrevet av KI. Produktet er da et gyldig bevis på KI-ens kompetanse — studentens forståelse er usynlig.</p>
+          </div>
+          <div class="concept-solution">
+            <div class="concept-solution-label">Konsekvensen</div>
+            <p>Validitet krever at underviser er bevisst hva slags læringsutbytte studenten faktisk skal vise — og legger til rette for at dette synliggjøres gjennom prosess eller samtale, ikke bare sluttprodukt.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RELIABILITET -->
+      <div class="concept-card">
+        <div class="concept-top">
+          <span class="concept-label">Reliabilitet</span>
+          <span class="concept-title">Pålitelighet</span>
+          <span class="concept-def">Sensorens bedømming er konsistent — ulike sensorers vurdering spriker i liten grad (Fjørtoft, 2025)</span>
+        </div>
+        <div class="concept-body">
+          <div class="concept-problem">
+            <div class="concept-problem-label">KI-utfordringen</div>
+            <p>Sensor mistenker KI-bruk, men kan ikke bevise det. Det skaper usikkerhet i bedømmingen og risiko for ulik behandling av studenter i samme vurderingssituasjon.</p>
+          </div>
+          <div class="concept-solution">
+            <div class="concept-solution-label">Konsekvensen</div>
+            <p>Reliabilitet krever tydelige sensorveiledninger, felles kriterier og dialog mellom sensorer om håndtering av KI-støttede bidrag — inkludert transparens fra studenten om KI-bruk.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KONSEKVENS -->
+  <div>
+    <div class="section-label"><span>Konsekvensen</span> — hva vi må gjøre annerledes</div>
+    <div style="height: 12px;"></div>
+
+    <div class="consequence-box">
+      <div class="consequence-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="consequence-content">
+        <div class="consequence-label">Fra produkt til prosess</div>
+        <div class="consequence-title">Fjørtoft (2025) skriver at lærere må avgjøre om prosessen skal bedømmes sammen med resultatet — eller om kompetansen kun vurderes gjennom sluttproduktet.</div>
+        <div style="font-size:0.88rem; color: rgba(255,255,255,0.80); margin-top: 10px; line-height: 1.6;">I universitetssammenheng finnes ingen standpunktkarakter som automatisk inkluderer prosessen. Det betyr at underviser må designe vurderingssituasjoner som synliggjør studentens prosess som en del av den summative vurderingen.</div>
+        <div class="consequence-points">
+          <div class="consequence-point">
+            <div class="consequence-point-title">Inkluder prosessen</div>
+            <div class="consequence-point-desc">Vurder hvordan studenten har navigert, valgt og begrunnet — ikke bare hva de endte opp med.</div>
+          </div>
+          <div class="consequence-point">
+            <div class="consequence-point-title">Krev transparens</div>
+            <div class="consequence-point-desc">Studenten dokumenterer KI-bruk. Åpenhet er grunnlaget for en vurderingspraksis med integritet.</div>
+          </div>
+          <div class="consequence-point">
+            <div class="consequence-point-title">Design for forsvar</div>
+            <div class="consequence-point-desc">Studenten skal kunne forklare og forsvare sine valg. Det epistemiske arbeidet er beviset på forståelse.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source">Fjørtoft, H. (2025). Multimodale digitale produkter: prinsipper for design og bedømming. I Ø. Gilje (Red.), Læring og vurdering i den digitale skolen (s. 139–155). Scandinavian University Press. <a href="https://www.scup.com/doi/10.18261/9788215071305-25-08" target="_blank" style="color: var(--green);">→ Les kapittelet</a></div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="diskusjon_1.html">← Diskusjon 1</a>
+  <a class="btn-next" href="vuki_sensor.html">VuKI — sensor og underviser →</a>
+</div>
+
+</body>
+</html>
