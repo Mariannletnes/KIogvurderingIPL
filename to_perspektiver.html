@@ -23,17 +23,17 @@
     text-transform: uppercase; color: var(--muted);
     padding-bottom: 6px;
     border-bottom: 1.5px solid #D0D8EC;
-    margin-bottom: 2px;
   }
   .section-label span { color: var(--green); }
 
+  /* ── TO KOLONNER ── */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
   .panel {
     background: white; border-radius: 14px;
     border: 1.5px solid #D0D8EC;
     padding: 28px 26px;
-    display: flex; flex-direction: column; gap: 18px;
+    display: flex; flex-direction: column; gap: 16px;
   }
 
   .panel-header { display: flex; align-items: center; gap: 14px; }
@@ -42,45 +42,47 @@
     width: 48px; height: 48px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .panel-icon.navy { background: rgba(30,39,97,0.10); }
   .panel-icon.green { background: rgba(29,158,117,0.12); }
-  .panel-icon svg { width: 26px; height: 26px; }
-  .panel-icon.navy svg { color: var(--navy); }
-  .panel-icon.green svg { color: var(--green); }
+  .panel-icon.green svg { color: var(--green); width: 26px; height: 26px; }
+  .panel-icon.navy { background: rgba(30,39,97,0.10); }
+  .panel-icon.navy svg { color: var(--navy); width: 26px; height: 26px; }
 
   .panel-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 3px; }
-  .panel-label.navy { color: var(--navy); }
   .panel-label.green { color: var(--green); }
+  .panel-label.navy { color: var(--navy); }
   .panel-title { font-size: 1.15rem; font-weight: 800; color: var(--navy); line-height: 1.25; }
+  .panel-subtitle { font-size: 0.80rem; font-style: italic; color: var(--muted); margin-top: 1px; }
 
-  .panel-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .panel-quote {
+    background: var(--bg);
+    border-left: 3px solid var(--green-light);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  .panel-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
 
   .panel-items { display: flex; flex-direction: column; gap: 8px; }
 
   .panel-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 12px 14px;
-    background: var(--bg); border-radius: 10px;
-    border: 1.5px solid transparent;
-    text-decoration: none; color: var(--text);
-    transition: background 0.18s, border-color 0.18s;
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px;
+    background: var(--bg); border-radius: 8px;
   }
-  .panel-item:hover { background: #E8FAF4; border-color: var(--green-light); }
+  .panel-item-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); flex-shrink: 0; margin-top: 6px; }
+  .panel-item-text { font-size: 0.82rem; color: var(--text); line-height: 1.55; }
+  .panel-item-text strong { color: var(--navy); font-weight: 600; }
 
-  .panel-item-icon { flex-shrink: 0; margin-top: 1px; }
-  .panel-item-icon svg { width: 18px; height: 18px; color: var(--navy); opacity: 0.55; }
-
-  .panel-item-body { display: flex; flex-direction: column; gap: 2px; }
-  .panel-item-title { font-size: 0.90rem; font-weight: 700; color: var(--navy); }
-  .panel-item-desc { font-size: 0.79rem; color: var(--muted); line-height: 1.5; }
-
-  /* Fordypningslenke nederst i panel */
   .panel-deeplink {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 16px;
+    padding: 11px 15px;
     background: rgba(29,158,117,0.07);
-    border: 1.5px solid rgba(29,158,117,0.25);
-    border-radius: 10px;
+    border: 1.5px solid rgba(29,158,117,0.22);
+    border-radius: 9px;
     text-decoration: none;
     color: var(--green);
     font-size: 0.82rem; font-weight: 600;
@@ -88,26 +90,26 @@
     margin-top: 4px;
   }
   .panel-deeplink:hover { background: rgba(29,158,117,0.13); border-color: var(--green); }
-  .panel-deeplink span { opacity: 0.7; font-size: 0.75rem; font-weight: 400; color: var(--muted); }
+  .panel-deeplink-arrow { font-size: 0.9rem; }
 
-  /* Spenningsfelt */
-  .tension-box {
+  /* ── KI-UTFORDRINGEN — mørk boks ── */
+  .ki-box {
     background: var(--navy); border-radius: 14px;
     padding: 26px 28px;
     display: flex; align-items: flex-start; gap: 22px;
   }
-  .tension-icon { flex-shrink: 0; margin-top: 2px; }
-  .tension-icon svg { width: 32px; height: 32px; color: var(--green-light); opacity: 0.80; }
-  .tension-content { flex: 1; }
-  .tension-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
-  .tension-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.3; }
-  .tension-points { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .tension-point {
+  .ki-icon { flex-shrink: 0; margin-top: 2px; }
+  .ki-icon svg { width: 30px; height: 30px; color: var(--green-light); opacity: 0.85; }
+  .ki-content { flex: 1; }
+  .ki-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
+  .ki-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  .ki-points { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ki-point {
     background: rgba(255,255,255,0.07); border-radius: 10px;
-    padding: 12px 14px; border: 1px solid rgba(255,255,255,0.10);
+    padding: 14px 16px; border: 1px solid rgba(255,255,255,0.10);
   }
-  .tension-point-title { font-size: 0.82rem; font-weight: 700; color: var(--green-light); margin-bottom: 4px; }
-  .tension-point-desc { font-size: 0.77rem; color: rgba(255,255,255,0.60); line-height: 1.5; }
+  .ki-point-title { font-size: 0.82rem; font-weight: 700; color: var(--green-light); margin-bottom: 5px; }
+  .ki-point-desc { font-size: 0.78rem; color: rgba(255,255,255,0.62); line-height: 1.55; }
 
   .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; }
   .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
@@ -134,107 +136,83 @@
 
   <div class="intro">
     <h1>To perspektiver — én problemstilling</h1>
-    <p>KI endrer vurdering på to nivåer samtidig: hva <strong>studenten</strong> kan bruke KI til i sitt arbeid, og hva <strong>underviseren og sensor</strong> kan bruke KI til i sitt vurderingsarbeid. Begge perspektivene henger uløselig sammen.</p>
+    <p>KI har brutt koblingen mellom produkt og forståelse. Det tvinger oss til å skille tydeligere mellom to former for vurdering — og å tenke nytt om begge.</p>
   </div>
 
   <!-- TO PERSPEKTIVER -->
   <div>
-    <div class="section-label"><span>De to perspektivene</span> — samme spørsmål, ulike roller</div>
-    <div style="height: 12px;"></div>
+    <div class="section-label"><span>Formativ og summativ</span> — hvorfor skillet betyr mer nå enn før</div>
+    <div style="height: 14px;"></div>
 
     <div class="two-col">
 
-      <!-- STUDENTENS PERSPEKTIV -->
+      <!-- FORMATIV -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-icon green">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           </div>
           <div>
-            <div class="panel-label green">Perspektiv 1</div>
-            <div class="panel-title">Studentens bruk av KI</div>
+            <div class="panel-label green">Formativ vurdering</div>
+            <div class="panel-title">Vurdering for læring</div>
+            <div class="panel-subtitle">Studentens interaksjon med fagstoffet underveis</div>
           </div>
         </div>
 
-        <p class="panel-desc">Studenten bruker KI i sitt arbeid med en oppgave. Det endrer grunnlaget for hva vurderingen faktisk måler — og hva det gjør med studentens læring og eierskap.</p>
+        <div class="panel-quote">«Underviseren ønsker å forstå meg»</div>
+
+        <p class="panel-desc">Formativ vurdering handler om å følge studenten i læreprosessen — å gi respons mens forståelsen er under utvikling. Her har KI sitt største potensial som urettelig tutor og dialogpartner.</p>
 
         <div class="panel-items">
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">Interaksjon med fagstoffet</div>
-              <div class="panel-item-desc">KI som dialogpartner i møtet med fagstoffet — grunnlaget for formativ vurdering</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>KI som tutor:</strong> umiddelbar respons på studentens tanker og utkast gjennom hele prosessen</span>
           </div>
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">Kommunikasjon av forståelse</div>
-              <div class="panel-item-desc">Eier studenten det som leveres? Grunnlaget for summativ vurdering</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>Underviserens rolle:</strong> designe læreprosesser som gir innsikt i studentens faktiske forståelse — gjennom prosessen</span>
           </div>
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">Det epistemiske arbeidet</div>
-              <div class="panel-item-desc">Hvordan studenten navigerer, stiller spørsmål og begrunner valg — det som faktisk kan vurderes</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>Det relasjonelle:</strong> den menneskelige fremovermeldingen sier at noen ser deg</span>
           </div>
         </div>
 
         <a class="panel-deeplink" href="student_interaksjon_kommunikasjon.html">
-          Fordypning: interaksjon og kommunikasjon
-          <span>→</span>
+          Fordypning: interaksjon og kommunikasjon i læreprosessen
+          <span class="panel-deeplink-arrow">→</span>
         </a>
       </div>
 
-      <!-- UNDERVISERENS PERSPEKTIV -->
+      <!-- SUMMATIV -->
       <div class="panel">
         <div class="panel-header">
           <div class="panel-icon navy">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
           </div>
           <div>
-            <div class="panel-label navy">Perspektiv 2</div>
-            <div class="panel-title">Underviserens og sensorens bruk av KI</div>
+            <div class="panel-label navy">Summativ vurdering</div>
+            <div class="panel-title">Vurdering av læring</div>
+            <div class="panel-subtitle">Studentens kommunikasjon av eget læringsutbytte</div>
           </div>
         </div>
 
-        <p class="panel-desc">KI gir underviseren nye verktøy i vurderingsarbeidet — fra oppgavedesign til tilbakemeldinger. Det reiser grunnleggende spørsmål om hvem som egentlig vurderer, og om studenten opplever seg sett.</p>
+        <div class="panel-quote">«Underviseren kjenner meg»</div>
+
+        <p class="panel-desc">Summativ vurdering handler om å dokumentere hva studenten har forstått når en prosess er over. Her ligger den største utfordringen med KI — og de viktigste spørsmålene om gyldighet.</p>
 
         <div class="panel-items">
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">KI i utforming av vurdering</div>
-              <div class="panel-item-desc">Lage oppgaver, kriterier og sensorveiledninger med KI som sparringspartner</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>Den store utfordringen:</strong> KI kan generere et produkt som ser ut som høy kompetanse uten at studenten forstår noe som helst</span>
           </div>
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">KI som analytisk støtte</div>
-              <div class="panel-item-desc">Identifisere mønstre på tvers av besvarelser og generere utkast til tilbakemeldinger</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>Optiske gevinster:</strong> vi risikerer å sette karakter på algoritmens ytelse</span>
           </div>
           <div class="panel-item">
-            <div class="panel-item-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            </div>
-            <div class="panel-item-body">
-              <div class="panel-item-title">Den relasjonelle grensen</div>
-              <div class="panel-item-desc">«Har underviseren lest det jeg skrev?» — tilliten til vurderingen avhenger av at studenten opplever seg sett</div>
-            </div>
+            <span class="panel-item-dot"></span>
+            <span class="panel-item-text"><strong>Spørsmålet:</strong> eier studenten det som kommuniseres? Kan de forsvare og forklare sine valg?</span>
           </div>
         </div>
       </div>
@@ -242,30 +220,26 @@
     </div>
   </div>
 
-  <!-- SPENNINGSFELT -->
+  <!-- KI-UTFORDRINGEN -->
   <div>
-    <div class="section-label"><span>Spenningsfeltet</span> — der de to perspektivene møtes</div>
-    <div style="height: 12px;"></div>
+    <div class="section-label"><span>KI-utfordringen</span> — hva dette betyr i praksis</div>
+    <div style="height: 14px;"></div>
 
-    <div class="tension-box">
-      <div class="tension-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+    <div class="ki-box">
+      <div class="ki-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
-      <div class="tension-content">
-        <div class="tension-label">Tre grunnleggende spenninger</div>
-        <div class="tension-title">Hva betyr det for vurderingens gyldighet når begge parter kan bruke KI?</div>
-        <div class="tension-points">
-          <div class="tension-point">
-            <div class="tension-point-title">Produkt vs. forståelse</div>
-            <div class="tension-point-desc">KI kan generere et produkt som ser ut som høy kompetanse. Produktet alene er ikke lenger et gyldig bevis på studentens forståelse.</div>
+      <div class="ki-content">
+        <div class="ki-label">Konsekvensen for vurdering</div>
+        <div class="ki-title">Produktet er nå løsrevet fra forståelsen.</div>
+        <div class="ki-points">
+          <div class="ki-point">
+            <div class="ki-point-title">For formativ vurdering</div>
+            <div class="ki-point-desc">Vi må designe læreprosesser der selve prosessen synliggjør forståelsen.</div>
           </div>
-          <div class="tension-point">
-            <div class="tension-point-title">Effektivitet vs. relasjon</div>
-            <div class="tension-point-desc">KI frigjør tid for underviseren — men studenten trenger å oppleve at noen faktisk har lest og sett det de har skrevet.</div>
-          </div>
-          <div class="tension-point">
-            <div class="tension-point-title">Transparens og tillit</div>
-            <div class="tension-point-desc">Når bruker studenten KI? Når bruker underviseren KI? Åpenhet om dette er grunnlaget for en vurderingspraksis med integritet.</div>
+          <div class="ki-point">
+            <div class="ki-point-title">For summativ vurdering</div>
+            <div class="ki-point-desc">Vi må stille spørsmål ved hva som er et gyldig bevis på kompetanse — og designe vurderingssituasjoner som fanger studentens faktiske kunnskap.</div>
           </div>
         </div>
       </div>
@@ -276,7 +250,7 @@
 
 <div class="nav-bar">
   <a class="btn-prev" href="avatar_intro.html">← Møt avatar-Mari-Ann</a>
-  <a class="btn-next" href="validitet_reliabilitet.html">Validitet og reliabilitet →</a>
+  <a class="btn-next" href="formativ_lareprosess.html">Læreprosessen →</a>
 </div>
 
 </body>

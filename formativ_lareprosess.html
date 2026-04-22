@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formativ vurdering — læreprosessen</title>
+<style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 22px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  .intro { }
+  .intro h1 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .intro p { font-size: 0.92rem; color: var(--muted); line-height: 1.65; max-width: 700px; }
+
+  .section-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid #D0D8EC;
+  }
+  .section-label span { color: var(--green); }
+
+  /* ── TRE PRINSIPPER ── */
+  .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .principle-card {
+    background: white; border-radius: 14px;
+    border: 1.5px solid #D0D8EC;
+    padding: 22px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .principle-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: rgba(29,158,117,0.10);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .principle-icon svg { width: 22px; height: 22px; color: var(--green); }
+
+  .principle-title { font-size: 1rem; font-weight: 800; color: var(--navy); line-height: 1.25; }
+  .principle-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+  .principle-tag {
+    display: inline-block;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: rgba(29,158,117,0.08);
+    border-radius: 4px;
+    padding: 3px 8px;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  /* ── KI-MULIGHETER OG UTFORDRINGER ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .mu-box { border-radius: 12px; padding: 18px 20px; }
+  .mu-box.mulighet { background: #E8FAF4; border: 1.5px solid #9FE1CB; }
+  .mu-box.utfordring { background: #FFF8E8; border: 1.5px solid #F5C96E; }
+  .mu-box h4 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .mu-box.mulighet h4 { color: var(--green); }
+  .mu-box.utfordring h4 { color: #B8860B; }
+  .mu-box ul { padding-left: 14px; display: flex; flex-direction: column; gap: 6px; }
+  .mu-box li { font-size: 0.82rem; color: var(--text); line-height: 1.55; }
+
+  /* ── FORDYPNING ── */
+  .deepdive {
+    background: white; border-radius: 14px;
+    border: 1.5px solid #D0D8EC;
+    padding: 20px 24px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+
+  .deepdive-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  .deepdive-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .deepdive-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1.5px solid rgba(29,158,117,0.22);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--navy);
+    transition: background 0.18s, border-color 0.18s;
+    gap: 12px;
+  }
+  .deepdive-link:hover { background: #E8FAF4; border-color: var(--green-light); }
+
+  .deepdive-link-img {
+    width: 44px; height: 44px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+    border: 2px solid var(--green-light);
+  }
+
+  .deepdive-link-body { flex: 1; }
+  .deepdive-link-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .deepdive-link-desc { font-size: 0.76rem; color: var(--muted); line-height: 1.4; }
+  .deepdive-link-arrow { color: var(--green-light); font-size: 1rem; flex-shrink: 0; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">Formativ vurdering · 03</span>
+</div>
+
+<div class="body">
+
+  <div class="intro">
+    <h1>Læreprosessen — hva må vi designe for at studenten faktisk lærer?</h1>
+    <p>Formativ vurdering gir mening bare hvis vi kan se inn i studentens forståelse underveis. Det krever læreprosesser der selve prosessen synliggjør forståelsen.</p>
+  </div>
+
+  <!-- TRE PRINSIPPER -->
+  <div>
+    <div class="section-label"><span>Tre prinsipper</span> — for læreprosesser som synliggjør forståelse</div>
+    <div style="height: 12px;"></div>
+
+    <div class="three-col">
+
+      <div class="principle-card">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <div class="principle-title">Synliggjør det epistemiske arbeidet</div>
+        <p class="principle-desc">Be studenten forklare, begrunne og verifisere. Prosessen er beviset på forståelse.</p>
+        <span class="principle-tag">Interaksjon</span>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="principle-title">Skap formativ friksjon</div>
+        <p class="principle-desc">Design oppgaver som krever tolkning, eget ståsted og begrunnede valg — situasjoner der studenten må stå i problemet selv.</p>
+        <span class="principle-tag">Læringsdesign</span>
+      </div>
+
+      <div class="principle-card">
+        <div class="principle-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="principle-title">Posisjoner KI som dialogpartner</div>
+        <p class="principle-desc">Studenten orkestrerer KI. KI er noe å stille spørsmål til og utfordre.</p>
+        <span class="principle-tag">KI-bruk</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- KI-MULIGHETER OG UTFORDRINGER -->
+  <div>
+    <div class="section-label"><span>KI i læreprosessen</span> — muligheter og utfordringer</div>
+    <div style="height: 12px;"></div>
+
+    <div class="two-col">
+      <div class="mu-box mulighet">
+        <h4>Muligheter</h4>
+        <ul>
+          <li>KI som urettelig tutor — umiddelbar og tålmodig respons på studentens spørsmål og utkast</li>
+          <li>Studenten kan utforske fagstoff i eget tempo og stille spørsmål fritt</li>
+          <li>Visualisering og simulering gjør abstrakt fagstoff konkret og håndgripelig</li>
+          <li>Frigjør underviserens tid til den relasjonelle og faglige veiledningen</li>
+        </ul>
+      </div>
+      <div class="mu-box utfordring">
+        <h4>Utfordringer</h4>
+        <ul>
+          <li>Studenten delegerer tenkearbeidet til KI — og læreprosessen kortslutter</li>
+          <li>KI brukt som orakel hemmer kategorial danning</li>
+          <li>Med lav formativ friksjon produserer studenten glatte svar med lav forståelse</li>
+          <li>Underviserens innsikt i studentens faktiske forståelse svekkes hvis prosessen er usynlig</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORDYPNING -->
+  <div class="deepdive">
+    <div class="deepdive-label">Vil du gå dypere?</div>
+    <div class="deepdive-links">
+
+      <a class="deepdive-link" href="student_interaksjon_kommunikasjon.html">
+        <img class="deepdive-link-img" src="interaksjon.png" alt="Interaksjon">
+        <div class="deepdive-link-body">
+          <div class="deepdive-link-title">Interaksjon og kommunikasjon</div>
+          <div class="deepdive-link-desc">Studentens dialog med fagstoffet og formidling av egen forståelse</div>
+        </div>
+        <span class="deepdive-link-arrow">→</span>
+      </a>
+
+      <a class="deepdive-link" href="student_visualisering_simulering.html">
+        <img class="deepdive-link-img" src="visualisering.png" alt="Visualisering">
+        <div class="deepdive-link-body">
+          <div class="deepdive-link-title">Visualisering og simulering</div>
+          <div class="deepdive-link-desc">Gjøre abstrakt fagstoff konkret — og øve i trygge omgivelser</div>
+        </div>
+        <span class="deepdive-link-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="to_perspektiver.html">← To perspektiver</a>
+  <a class="btn-next" href="vuki_student.html">VuKI — studentperspektiv →</a>
+</div>
+
+</body>
+</html>
