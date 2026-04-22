@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VuKI — sensor og underviser</title>
+<style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 28px 48px 24px; display: flex; flex-direction: column; gap: 20px; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+  .intro h1 { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .intro p { font-size: 0.90rem; color: var(--muted); line-height: 1.65; max-width: 700px; }
+
+  .section-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding-bottom: 6px; border-bottom: 1.5px solid #D0D8EC;
+  }
+  .section-label span { color: var(--green); }
+
+  /* ── FEM NIVÅER ── */
+  .levels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+
+  .level-card {
+    border-radius: 12px; border: 1.5px solid #D0D8EC;
+    overflow: hidden; display: flex; flex-direction: column;
+    background: white;
+  }
+
+  .level-top { padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .level-num { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+  .level-title { font-size: 1.0rem; font-weight: 800; color: var(--navy); line-height: 1.2; }
+  .level-tagline { font-size: 0.75rem; font-style: italic; color: var(--muted); line-height: 1.4; }
+  .level-divider { height: 3px; }
+
+  .level-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .level-hensikt { font-size: 0.78rem; color: var(--text); line-height: 1.6; }
+
+  .level-sensor {
+    background: var(--bg); border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.76rem; font-style: italic;
+    color: var(--navy); line-height: 1.55;
+    border-left: 3px solid var(--navy);
+  }
+  .level-sensor-label {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--navy);
+    margin-bottom: 4px; font-style: normal; opacity: 0.6;
+  }
+
+  .level-relasjon {
+    background: rgba(29,158,117,0.07); border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.74rem; color: var(--green);
+    line-height: 1.5; font-weight: 500;
+  }
+
+  /* Farger per nivå */
+  .l1 .level-num { color: #6b7280; }
+  .l1 .level-divider { background: #6b7280; }
+  .l2 .level-num { color: #d97706; }
+  .l2 .level-divider { background: #d97706; }
+  .l3 .level-num { color: #ca8a04; }
+  .l3 .level-divider { background: #eab308; }
+  .l4 .level-num { color: var(--green); }
+  .l4 .level-divider { background: #86efac; }
+  .l5 .level-num { color: #16a34a; }
+  .l5 .level-divider { background: #16a34a; }
+
+  /* ── RELASJONSKRAV ── */
+  .relasjon-box {
+    background: var(--navy); border-radius: 14px;
+    padding: 22px 28px;
+    display: flex; align-items: flex-start; gap: 20px;
+  }
+  .relasjon-icon { flex-shrink: 0; margin-top: 2px; }
+  .relasjon-icon svg { width: 28px; height: 28px; color: var(--green-light); }
+  .relasjon-content { flex: 1; }
+  .relasjon-label { font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 6px; }
+  .relasjon-title { font-size: 1.0rem; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.3; }
+  .relasjon-points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .relasjon-point {
+    background: rgba(255,255,255,0.07); border-radius: 9px;
+    padding: 12px 14px; border: 1px solid rgba(255,255,255,0.10);
+  }
+  .relasjon-point-title { font-size: 0.80rem; font-weight: 700; color: var(--green-light); margin-bottom: 4px; }
+  .relasjon-point-desc { font-size: 0.76rem; color: rgba(255,255,255,0.62); line-height: 1.55; }
+
+  .credit { font-size: 0.72rem; color: var(--muted); text-align: right; }
+  .credit a { color: var(--green); }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--navy-dark); }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">Summativ vurdering · VuKI sensor og underviser · 06</span>
+</div>
+
+<div class="body">
+
+  <div class="intro">
+    <h1>VuKI — underviserens og sensorens bruk av KI</h1>
+    <p>Rammeverket gjelder begge veier. Underviseren tar et bevisst valg om hvilket nivå studentene skal arbeide på — og tar et like bevisst valg om sin egen KI-bruk i vurderingsarbeidet. Vurderingen er og forblir underviserens ansvar.</p>
+  </div>
+
+  <!-- FEM NIVÅER -->
+  <div>
+    <div class="section-label"><span>De fem nivåene</span> — sett fra underviserens og sensorens ståsted</div>
+    <div style="height: 12px;"></div>
+
+    <div class="levels">
+
+      <!-- NIVÅ 1 -->
+      <div class="level-card l1">
+        <div class="level-top">
+          <span class="level-num">Nivå 1</span>
+          <span class="level-title">Ingen KI</span>
+          <span class="level-tagline">Vurdering helt uten KI-støtte</span>
+        </div>
+        <div class="level-divider"></div>
+        <div class="level-body">
+          <p class="level-hensikt">Underviser leser, vurderer og gir tilbakemelding uten KI. Viktig der relasjonen til studenten er selve grunnlaget for vurderingen.</p>
+          <div class="level-sensor">
+            <div class="level-sensor-label">Sensorens praksis</div>
+            Hele vurderingen er menneskelig — og studenten vet det.
+          </div>
+        </div>
+      </div>
+
+      <!-- NIVÅ 2 -->
+      <div class="level-card l2">
+        <div class="level-top">
+          <span class="level-num">Nivå 2</span>
+          <span class="level-title">KI i planlegging</span>
+          <span class="level-tagline">KI i utforming av vurderingsoppgaven</span>
+        </div>
+        <div class="level-divider"></div>
+        <div class="level-body">
+          <p class="level-hensikt">KI brukes til å lage oppgaver, kriterier og sensorveiledninger. Underviser tar alle faglige og pedagogiske beslutninger.</p>
+          <div class="level-sensor">
+            <div class="level-sensor-label">Sensorens praksis</div>
+            KI som sparringspartner i designfasen — kriteriene er underviserens egne.
+          </div>
+        </div>
+      </div>
+
+      <!-- NIVÅ 3 -->
+      <div class="level-card l3">
+        <div class="level-top">
+          <span class="level-num">Nivå 3</span>
+          <span class="level-title">KI underveis</span>
+          <span class="level-tagline">KI som analytisk støtte i vurderingsprosessen</span>
+        </div>
+        <div class="level-divider"></div>
+        <div class="level-body">
+          <p class="level-hensikt">KI identifiserer mønstre på tvers av besvarelser og genererer utkast til tilbakemeldinger. Sensor beholder det faglige skjønnet og justerer alle forslag.</p>
+          <div class="level-sensor">
+            <div class="level-sensor-label">Sensorens praksis</div>
+            KI gir første utkast — sensor leser, vurderer og signerer med faglig integritet.
+          </div>
+        </div>
+      </div>
+
+      <!-- NIVÅ 4 -->
+      <div class="level-card l4">
+        <div class="level-top">
+          <span class="level-num">Nivå 4</span>
+          <span class="level-title">KI for fullt</span>
+          <span class="level-tagline">KI gjennom hele vurderingssyklusen</span>
+        </div>
+        <div class="level-divider"></div>
+        <div class="level-body">
+          <p class="level-hensikt">Fra oppgavedesign til mønsteranalyse og individuelle tilbakemeldinger. Underviser orkestrerer og kvalitetssikrer — men mye av det operative gjøres av KI.</p>
+          <div class="level-sensor">
+            <div class="level-sensor-label">Sensorens praksis</div>
+            Egner seg ved store studentgrupper og standardiserte oppgavetyper.
+          </div>
+          <div class="level-relasjon">⚠ Studenten spør: «Har underviseren lest det jeg skrev?»</div>
+        </div>
+      </div>
+
+      <!-- NIVÅ 5 -->
+      <div class="level-card l5">
+        <div class="level-top">
+          <span class="level-num">Nivå 5</span>
+          <span class="level-title">Utforskende KI</span>
+          <span class="level-tagline">Eksperimentering med nye vurderingsformer</span>
+        </div>
+        <div class="level-divider"></div>
+        <div class="level-body">
+          <p class="level-hensikt">Underviser utforsker nye former for KI-støttet vurdering — adaptive systemer, læringsanalyse eller KI-støttet egenvurdering. Passer i FoU-sammenheng og fagfellesskapet.</p>
+          <div class="level-sensor">
+            <div class="level-sensor-label">Sensorens praksis</div>
+            Utvikler ny vurderingspraksis — i samarbeid med studenter og kollegaer.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DATAKLASSIFISERING -->
+  <div>
+    <div class="section-label"><span>Hva er lov?</span> — mulig vs. tillatt</div>
+    <div style="height: 12px;"></div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+
+      <!-- DATAKLASSIFISERING -->
+      <div style="background: white; border-radius: 14px; border: 1.5px solid #D0D8EC; overflow: hidden;">
+        <div style="background: var(--navy); padding: 14px 20px;">
+          <div style="font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green-light); margin-bottom: 2px;">GDPR og dataklassifisering</div>
+          <div style="font-size: 1.0rem; font-weight: 800; color: #fff;">Studentbesvarelser er gule data</div>
+        </div>
+        <div style="padding: 0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
+            <thead>
+              <tr style="background: var(--bg);">
+                <th style="padding: 9px 14px; text-align: left; font-weight: 700; color: var(--navy); border-bottom: 1.5px solid #D0D8EC;">Klassifisering</th>
+                <th style="padding: 9px 14px; text-align: left; font-weight: 700; color: var(--navy); border-bottom: 1.5px solid #D0D8EC;">Hva kan behandles?</th>
+                <th style="padding: 9px 14px; text-align: left; font-weight: 700; color: var(--navy); border-bottom: 1.5px solid #D0D8EC;">Verktøy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 9px 14px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#22c55e; margin-right:6px;"></span><strong>Grønn</strong></td>
+                <td style="padding: 9px 14px; color: var(--muted);">Faglige spørsmål, publiserte tekster, inspirasjon</td>
+                <td style="padding: 9px 14px; color: var(--muted);">Kommersielle verktøy (kun åpen informasjon)</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee; background: #fffbeb;">
+                <td style="padding: 9px 14px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#eab308; margin-right:6px;"></span><strong>Gul ⚠</strong></td>
+                <td style="padding: 9px 14px; color: var(--muted);">Studentbesvarelser, personopplysninger, tekster med begrenset tilgang</td>
+                <td style="padding: 9px 14px; color: var(--muted);">Kun godkjente verktøy med databehandleravtale — <strong style="color: var(--navy);">Copilot (NTNU-godkjent)</strong></td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 9px 14px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#ef4444; margin-right:6px;"></span><strong>Rød</strong></td>
+                <td style="padding: 9px 14px; color: var(--muted);">Sensitive personopplysninger</td>
+                <td style="padding: 9px 14px; color: var(--muted);">Spesialiserte programmer</td>
+              </tr>
+              <tr>
+                <td style="padding: 9px 14px;"><span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#111; margin-right:6px;"></span><strong>Svart</strong></td>
+                <td style="padding: 9px 14px; color: var(--muted);">Strengt fortrolige opplysninger</td>
+                <td style="padding: 9px 14px; color: var(--muted);">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="padding: 12px 16px; border-top: 1.5px solid #D0D8EC; font-size: 0.74rem; color: var(--muted);">
+          Som tilsatt ved NTNU har du ikke lov — i samsvar med GDPR — å dele data med kommersielle KI-verktøy uten databehandleravtale. Studentbesvarelser er personopplysninger og kan kun behandles i godkjente verktøy.<br><br>
+          <a href="https://i.ntnu.no/wiki/-/wiki/Norsk/Eksamen+og+kunstig+intelligens+-+for+faglærar" target="_blank" style="color: var(--green);">NTNUs retningslinjer for eksamen og KI →</a><br>
+          <a href="https://i.ntnu.no/wiki/-/wiki/Norsk/Bruk+av+IKT-verktøy+med+generativ+kunstig+intelligens+ved+NTNU+-+retningslinje" target="_blank" style="color: var(--green);">Utkast til retningslinje for KI-verktøy ved NTNU (på høring) →</a>
+        </div>
+      </div>
+
+      <!-- AI ACT OG EIERSKAP -->
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+
+        <div style="background: white; border-radius: 12px; border: 1.5px solid #D0D8EC; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green);">EU AI Act — høy risiko</div>
+          <div style="font-size: 0.90rem; font-weight: 800; color: var(--navy);">KI i sensur er klassifisert som høyrisiko</div>
+          <p style="font-size: 0.79rem; color: var(--muted); line-height: 1.6;">KI-systemer brukt til å evaluere læringsutbytte eller sensurere eksamensbesvarelser faller under høyrisikokategorien i AI Act. Det innebærer krav til transparens, menneskelig tilsyn og dokumentasjon.</p>
+          <div style="background: #E8FAF4; border-radius: 8px; padding: 10px 12px; font-size: 0.78rem; color: var(--navy); line-height: 1.55; border-left: 3px solid var(--green-light);">
+            <strong>Studenten har rett til forklaring</strong> på hvilken rolle KI har spilt i sensuren av besvarelsen deres (AI Act, art. 86).
+          </div>
+          <div style="font-size: 0.74rem; color: var(--muted);">Trer i kraft i Norge: august 2026</div>
+        </div>
+
+        <div style="background: white; border-radius: 12px; border: 1.5px solid #D0D8EC; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #d97706;">Eierskap til tekst</div>
+          <div style="font-size: 0.90rem; font-weight: 800; color: var(--navy);">Hvem eier studentens besvarelse?</div>
+          <p style="font-size: 0.79rem; color: var(--muted); line-height: 1.6;">Når en studentbesvarelse lastes opp i et KI-verktøy, kan teksten brukes til trening av modellen — avhengig av verktøyets vilkår. Studenten har opphavsrett til sin egen tekst. Dette er en uavklart problemstilling som krever bevissthet fra underviserens side.</p>
+          <div style="background: #FFF8E8; border-radius: 8px; padding: 10px 12px; font-size: 0.78rem; color: #92400e; line-height: 1.55; border-left: 3px solid #f59e0b;">
+            Sjekk alltid vilkårene for det KI-verktøyet du bruker — og informer studenten dersom besvarelsen behandles av KI.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RELASJONSKRAV -->
+  <div class="relasjon-box">
+    <div class="relasjon-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    </div>
+    <div class="relasjon-content">
+      <div class="relasjon-label">Uansett nivå — fire krav som alltid gjelder</div>
+      <div class="relasjon-title">Vurderingen er underviserens ansvar. KI endrer verktøyene, ikke ansvaret.</div>
+      <div class="relasjon-points">
+        <div class="relasjon-point">
+          <div class="relasjon-point-title">Vær transparent</div>
+          <div class="relasjon-point-desc">Studenten har rett til å vite hvilken rolle KI har spilt i tilbakemeldingen de mottar.</div>
+        </div>
+        <div class="relasjon-point">
+          <div class="relasjon-point-title">Underviser gir vurderingen</div>
+          <div class="relasjon-point-desc">KI kan hjelpe — men karakteren og tilbakemeldingen er alltid underviserens.</div>
+        </div>
+        <div class="relasjon-point">
+          <div class="relasjon-point-title">Bruk KI til rutineoppgaver</div>
+          <div class="relasjon-point-desc">Spar den frigjorte tiden til menneskemøtene — den gode samtalen og relasjonell veiledning.</div>
+        </div>
+        <div class="relasjon-point">
+          <div class="relasjon-point-title">Studenten skal føle seg sett</div>
+          <div class="relasjon-point-desc">Autentisitet og relasjon er like viktig som faglig presisjon (Wemyss, 2025; Alfredo et al., 2024).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="credit">
+    Basert på Perkins, Furze, Roe &amp; MacVaugh (2024). The AI Assessment Scale — bearbeidet og oversatt av Stine Brynildsen, HiØ (2024). <a href="https://fleksibelutdanning.no/wp-content/uploads/2023/11/Rammeverk-for-vurdering-og-KI-VuKI-oktober-2024.pdf" target="_blank">Last ned VuKI (PDF) →</a>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="validitet_reliabilitet.html">← Validitet og reliabilitet</a>
+  <a class="btn-next" href="diskusjon_2.html">Diskusjon 2 →</a>
+</div>
+
+</body>
+</html>
