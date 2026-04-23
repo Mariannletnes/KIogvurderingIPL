@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Referanser — KI og vurdering</title>
+<style>
+  :root { --navy: #1E2761; --navy-dark: #161e4e; --green: #1D9E75; --green-light: #5DCAA5; --bg: #F0F2F7; --text: #1a1a2e; --muted: #5a6080; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+
+  .header { background: var(--navy); padding: 18px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green-light); font-weight: 600; }
+
+  .body { flex: 1; padding: 32px 48px 40px; display: flex; flex-direction: column; gap: 28px; max-width: 900px; width: 100%; margin: 0 auto; }
+
+  .intro h1 { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .intro p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+  .section-label {
+    font-size: 0.70rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    padding-bottom: 6px; border-bottom: 1.5px solid #D0D8EC;
+    margin-bottom: 14px;
+  }
+  .section-label span { color: var(--green); }
+
+  .ref-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .ref-item {
+    background: white; border-radius: 10px;
+    border: 1.5px solid #D0D8EC;
+    padding: 14px 18px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+
+  .ref-authors {
+    font-size: 0.82rem; color: var(--navy); font-weight: 600; line-height: 1.5;
+  }
+
+  .ref-title {
+    font-size: 0.82rem; color: var(--text); line-height: 1.55; font-style: italic;
+  }
+
+  .ref-source {
+    font-size: 0.78rem; color: var(--muted); line-height: 1.5;
+  }
+
+  .ref-link {
+    font-size: 0.75rem; color: var(--green); text-decoration: none;
+    align-self: flex-start; margin-top: 2px;
+  }
+  .ref-link:hover { text-decoration: underline; }
+
+  .nav-bar { background: white; border-top: 1.5px solid #e0e4f0; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .nav-bar a { border-radius: 50px; padding: 10px 24px; font-size: 0.88rem; font-weight: 600; font-family: inherit; text-decoration: none; display: inline-flex; align-items: center; transition: background 0.2s; }
+  .btn-prev { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
+  .btn-prev:hover { background: #f0f2f7; }
+
+  .home-btn { position: fixed; top: 14px; right: 20px; z-index: 100; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #fff; text-decoration: none; }
+  .home-btn svg { width: 16px; height: 16px; }
+</style>
+</head>
+<body>
+
+<a class="home-btn" href="index.html">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+</a>
+
+<div class="header">
+  <span class="kicker">KI og vurdering · Referanser</span>
+</div>
+
+<div class="body">
+
+  <div class="intro">
+    <h1>Referanser</h1>
+    <p>Kilder og litteratur brukt i presentasjonen.</p>
+  </div>
+
+  <!-- VURDERING OG KI -->
+  <div>
+    <div class="section-label"><span>Vurdering og KI</span></div>
+    <div class="ref-list">
+
+      <div class="ref-item">
+        <div class="ref-authors">Fjørtoft, H. (2025).</div>
+        <div class="ref-title">Multimodale digitale produkter: prinsipper for design og bedømming.</div>
+        <div class="ref-source">I Ø. Gilje (Red.), <em>Læring og vurdering i den digitale skolen</em> (s. 139–155). Scandinavian University Press.</div>
+        <a class="ref-link" href="https://www.scup.com/doi/10.18261/9788215071305-25-08" target="_blank">→ Les kapittelet (åpen tilgang)</a>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Perkins, M., Furze, L., Roe, J. & MacVaugh, J. (2024).</div>
+        <div class="ref-title">The AI Assessment Scale (AIAS): A Framework for Ethical Integration of Generative AI in Educational Assessment.</div>
+        <div class="ref-source"><em>Journal of University Teaching & Learning Practice.</em></div>
+        <a class="ref-link" href="https://doi.org/10.53761/q3azde36" target="_blank">→ doi:10.53761/q3azde36</a>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Brynildsen, S. (2024).</div>
+        <div class="ref-title">Rammeverk for vurdering og KI (VuKI) — bearbeidet og oversatt versjon av Perkins et al. (2024) AI Assessment Scale.</div>
+        <div class="ref-source">Høgskolen i Østfold. CC BY NC SA 4.0.</div>
+        <a class="ref-link" href="https://fleksibelutdanning.no/wp-content/uploads/2023/11/Rammeverk-for-vurdering-og-KI-VuKI-oktober-2024.pdf" target="_blank">→ Last ned VuKI (PDF)</a>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Furze, L. (2024, 28. august).</div>
+        <div class="ref-title">Updating the AI Assessment Scale.</div>
+        <div class="ref-source">leonfurze.com</div>
+        <a class="ref-link" href="https://leonfurze.com/2024/08/28/updating-the-ai-assessment-scale/" target="_blank">→ Les innlegget</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LÆRING OG DANNING -->
+  <div>
+    <div class="section-label"><span>Læring og danning</span></div>
+    <div class="ref-list">
+
+      <div class="ref-item">
+        <div class="ref-authors">Dewey, J. (1938).</div>
+        <div class="ref-title">Experience and Education.</div>
+        <div class="ref-source">Macmillan.</div>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Klafki, W. (2000).</div>
+        <div class="ref-title">Didaktik analysis as the core of preparation of instruction.</div>
+        <div class="ref-source">I I. Westbury, S. Hopmann & K. Riquarts (Red.), <em>Teaching as a reflective practice</em> (s. 139–159). Lawrence Erlbaum Associates.</div>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Klafki, W. (2001).</div>
+        <div class="ref-title">Dannelsesteori og didaktik: nye studier.</div>
+        <div class="ref-source">Klim.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LÆRINGSANALYSE OG FORSKNING -->
+  <div>
+    <div class="section-label"><span>Læringsanalyse og forskning</span></div>
+    <div class="ref-list">
+
+      <div class="ref-item">
+        <div class="ref-authors">Alfredo, R., Echeverria, V., Jin, Y., Yan, L., Swiecki, Z., Gašević, D. & Martinez-Maldonado, R. (2024).</div>
+        <div class="ref-title">Human-centred learning analytics and AI in education: A systematic literature review.</div>
+        <div class="ref-source"><em>Computers and Education: Artificial Intelligence</em>, 6, 100215.</div>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">Paolucci, C., Vancini, S., Bex II, R. T., Cavanaugh, C., Salama, C. & de Araujo, Z. (2024).</div>
+        <div class="ref-title">A review of learning analytics opportunities and challenges for K-12 education.</div>
+        <div class="ref-source"><em>Heliyon</em>, 10(4).</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NTNU OG REGELVERK -->
+  <div>
+    <div class="section-label"><span>NTNU og regelverk</span></div>
+    <div class="ref-list">
+
+      <div class="ref-item">
+        <div class="ref-authors">NTNU.</div>
+        <div class="ref-title">Eksamen og kunstig intelligens — for faglærar.</div>
+        <div class="ref-source">Kunnskapsbasen, NTNU.</div>
+        <a class="ref-link" href="https://i.ntnu.no/wiki/-/wiki/Norsk/Eksamen+og+kunstig+intelligens+-+for+faglærar" target="_blank">→ Les retningslinjene</a>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">NTNU. (på høring).</div>
+        <div class="ref-title">Bruk av IKT-verktøy med generativ kunstig intelligens ved NTNU — retningslinje.</div>
+        <div class="ref-source">Kunnskapsbasen, NTNU. Merk: dokumentet er per april 2026 ute på høring og ikke endelig vedtatt.</div>
+        <a class="ref-link" href="https://i.ntnu.no/wiki/-/wiki/Norsk/Bruk+av+IKT-verktøy+med+generativ+kunstig+intelligens+ved+NTNU+-+retningslinje" target="_blank">→ Les utkastet</a>
+      </div>
+
+      <div class="ref-item">
+        <div class="ref-authors">EU. (2024).</div>
+        <div class="ref-title">Regulation (EU) 2024/1689 — Artificial Intelligence Act.</div>
+        <div class="ref-source">Trådte i kraft i EU 1. august 2024. Ventes innført i norsk rett august 2026.</div>
+        <a class="ref-link" href="https://hkdir.no/rapporter-undersokelser-og-statistikk/les-rapporten/ki-forordningen-kort-fortalt-betydningen-av-nytt-eu-regelverk-om-kunstig-intelligens-for-hoyere-utdanning-og-forskning" target="_blank">→ KI-forordningen for høyere utdanning (HK-dir)</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="nav-bar">
+  <a class="btn-prev" href="diskusjon_3.html">← Diskusjon 3</a>
+</div>
+
+</body>
+</html>
